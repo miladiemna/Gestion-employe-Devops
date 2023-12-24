@@ -11,6 +11,13 @@ pipeline {
             checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/Gestion-employe-Devops']])
             }
         } 
+
+        stage('Build maven'){
+            steps{
+                dir('./Back-devops') {
+                    sh 'mvn clean package'
+                }
+            }
        
 
     
