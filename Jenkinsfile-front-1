@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         nodejs 'nodejs'
-        dockerTool 'docker'
+        docker 'docker'
     }
     stages {
         stage('Get Code from Github') {
