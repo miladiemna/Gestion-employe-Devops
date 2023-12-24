@@ -16,7 +16,7 @@ pipeline {
     steps {
         // Étape pour exécuter l'analyse SonarQube dans le répertoire 'Back-devops'
         dir('./Back-devops') {
-            sh "mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://127.0.0.1:9091 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e" // Commande Maven pour l'analyse SonarQube
+            sh "mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://192.168.1.241:9091 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e" // Commande Maven pour l'analyse SonarQube
         }
     }
 }
