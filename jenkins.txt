@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    tools{
+        maven 'maven'
+    }
+
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                sh 'rm-rf'
+                sh 'git clone 'https://github.com/username/repository.git'
+            }
+        } 
+
+    stages{
+        stage('Build Maven'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/dev.git']]])
+                sh 'mvn clean install'
+                
+            }
+        }
+        stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -f DockerFileBack -t miladiemna/dev .'
+                }
+            }
+        }
+        stage('Push image to Hub'){
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'devops')]) {
+                   sh 'docker login -u miladiemna -p ${dockerhubpwd}'
+                   }
+                   sh 'docker push miladiemna/dev'
+                }
+            }
+        }
+    }
+}
