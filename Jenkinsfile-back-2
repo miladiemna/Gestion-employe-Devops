@@ -12,6 +12,14 @@ pipeline {
             }
         } 
 
+        stage('SonarQube Analysis') {
+            steps {
+                // Étape pour exécuter l'analyse SonarQube
+                    dir('./Back-devops')  {
+                    sh 'mvn sonar:sonar' // Commande Maven pour l'analyse SonarQube
+                }
+            }
+
        
 
 
