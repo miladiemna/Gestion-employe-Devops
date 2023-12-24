@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repository from git') {
             steps {
                 sh 'rm-rf'
-                sh 'git clone 'https://github.com/miladiemna/Gestion-employe-Devops.git'
+                sh 'git clone https://github.com/miladiemna/Gestion-employe-Devops.git'
             }
         } 
 
