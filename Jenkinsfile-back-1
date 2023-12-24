@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Clone Repository from git') {
             steps {
-                git ' https://github.com/miladiemna/Gestion-employe-Devops.git'
+                git clone ' https://github.com/miladiemna/Gestion-employe-Devops.git'
             }
         } 
 
