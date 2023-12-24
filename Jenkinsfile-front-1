@@ -9,6 +9,16 @@ pipeline {
                         checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/Gestion-employe-Devops']])
                     }
         }
+
+
+        stage('Build Front'){
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
     }
 
 }
