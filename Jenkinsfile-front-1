@@ -19,6 +19,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Sonar Scanner') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
     }
 
 }
