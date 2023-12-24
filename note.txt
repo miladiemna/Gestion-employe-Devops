@@ -1,1 +1,1 @@
-mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://127.0.0.1:9090 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e
+sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e
