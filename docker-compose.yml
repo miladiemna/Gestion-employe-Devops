@@ -52,7 +52,7 @@ services:
             - sonarqube_database:/var/lib/postgresql
             - sonarqube_database_data:/var/lib/postgresql/data
         ports:
-            -   5432:5432c
+            -   5432:5432
 
 
 volumes:
