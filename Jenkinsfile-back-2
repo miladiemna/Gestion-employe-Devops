@@ -19,9 +19,7 @@ pipeline {
                     sh 'mvn sonar:sonar' // Commande Maven pour l'analyse SonarQube
                 }
             }
-
-       
-
-
-}
+        }
+ }
+ 
  }
