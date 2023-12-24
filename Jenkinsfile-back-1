@@ -1,13 +1,17 @@
 pipeline {
     agent any
+    tools{
+        maven 'maven'
+    }
     
-
     stages {
         stage('Clone Repository from git') {
             steps {
-                git ' https://github.com/miladiemna/Gestion-employe-Devops.git'
+            checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/Gestion-employe-Devops']])
             }
         } 
+       
 
-    }
+    
 }
+ }
