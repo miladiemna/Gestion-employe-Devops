@@ -54,6 +54,15 @@ pipeline {
              }
            }
       
+            stage('Push to docker hub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
+                        sh "docker push miladiemna/backend"
+                    }
+                }
+            }
+        }
     }
 
 
