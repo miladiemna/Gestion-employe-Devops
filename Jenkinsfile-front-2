@@ -36,7 +36,7 @@ pipeline {
                   //  sh 'docker build -f DockerfileFront -t frontend .'
                // }
            //   // }
-            }
+            
 
         stage('Publish To Nexus') {
             steps {
