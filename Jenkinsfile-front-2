@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         nodejs 'nodejs'
+        dockerTool 'docker'
         
     }
     stages {
@@ -29,13 +30,13 @@ pipeline {
             }
         }
 
-        //stage('docker image'){
-            //steps{
+        stage('docker image'){
+            steps{
                 
-                //    sh 'docker build -f DockerfileFront -t frontend .'
-                //}
-               // }
-           // }
+                    sh 'docker build -f DockerfileFront -t frontend .'
+                }
+               }
+            }
 
       
 }
