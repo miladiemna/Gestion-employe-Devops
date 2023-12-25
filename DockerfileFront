@@ -1,3 +1,4 @@
 FROM nginx:alpine
 COPY Front-Devops/dist/front-devops /usr/share/nginx/html
 COPY Front-Devops/nginx.conf /etc/nginx/nginx.conf
+CMD ["nginx", "-g", "daemon off;"]
