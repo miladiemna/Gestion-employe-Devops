@@ -43,7 +43,7 @@ pipeline {
                     artifacts: [
                         [artifactId: 'StageTalanBack',
                         classifier: '',
-                         file: 'target/StageTalanBack 0.0.1-SNAPSHOT.jar',
+                         file: './target/StageTalanBack-0.0.1-SNAPSHOT.jar',
                          type: 'jar']])
             }
             }
