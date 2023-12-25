@@ -54,7 +54,7 @@ pipeline {
              }
            }
       
-            stage('Push to docker hub'){
+            /*stage('Push to docker hub'){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
@@ -62,7 +62,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
          stage('Docker compose'){
             steps{
                 script{
