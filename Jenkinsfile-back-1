@@ -1,9 +1,10 @@
 pipeline {
     agent any
+
     tools {
         maven 'maven'
+        dockerTool 'docker'
     }
-    
     
     stages {
         stage('Clone Repository from git') {
@@ -53,7 +54,11 @@ pipeline {
              }
            }*/
       
-
+           stage('docker'){
+             steps {
+               sh 'docker ps'
+             }
+           }
 
        
     }
