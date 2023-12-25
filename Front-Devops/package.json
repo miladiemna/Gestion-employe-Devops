@@ -10,7 +10,7 @@
     "sonar": "sonar-scanner"
   },
   "publishConfig": {
-    "registry": "http://nexus:8081/repository/front-Devops/"
+    "registry": "http://192.168.1.241:8081/repository/front-Devops/"
   },
   
   "dependencies": {
