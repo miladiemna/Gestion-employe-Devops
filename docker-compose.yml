@@ -5,11 +5,15 @@ services:
     jenkins:
         image: jenkins/jenkins:lts
         container_name: jenkins
+        environment:
+          - DOCKER_HOST=tcp://host.docker.internal:2375
         ports:
             - "8080:8080"  # Port Jenkins web UI
             - "50000:50000"  # Port pour les connexions d'agent
+        privileged: true
         volumes:
             - jenkins_home:/var/jenkins_home  
+            - /var/run/docker.sock:/var/run/docker.sock
     nexus:
         image: sonatype/nexus3:latest
         container_name: nexus
