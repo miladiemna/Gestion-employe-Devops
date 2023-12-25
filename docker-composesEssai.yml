@@ -7,13 +7,13 @@ services:
     environment: 
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/TalanBD
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_DATASOURCE_PASSWORD: amouna
     container_name: back
     build: 
       dockerfile: DockerFileBack
       context: "./"
     ports:
-      - "5000:8082"
+      - "8082:8082"
 
   frontdevops:
     networks:
@@ -33,7 +33,7 @@ services:
     networks:
       -devops
     image: postgres
-    container_name: postgres_container
+    container_name: db
     environment:
       POSTGRES_DB: TalanBD
       POSTGRES_USER: postgres
@@ -41,7 +41,7 @@ services:
     volumes:
       - my-datavolume:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - devops
 
