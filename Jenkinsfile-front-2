@@ -46,7 +46,7 @@ pipeline {
                         sh "npm publish --userconfig ${mynpmrc} --loglevel verbose"
                     }
                 }
-            }
+            }}}
             
 
         
@@ -54,4 +54,4 @@ pipeline {
 
     
 
-}}}
+}}
