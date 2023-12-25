@@ -39,7 +39,7 @@ pipeline {
                     credentialsId: 'nexus',
                     repository: 'Back-Devops',
                     groupId: 'com.example',
-                    version: '0.0.1', 
+                    version: '0.0.1-SNAPSHOT', 
                     artifacts: [
                         [artifactId: 'StageTalanBack',
                         classifier: '',
