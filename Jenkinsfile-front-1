@@ -38,25 +38,27 @@ pipeline {
            // }
 
             stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    // Build and push Docker image
-                    docker.build(('my-docker-image:latest', '-f DockerfileFront'))
-                    docker.withRegistry( 'miladiemna') {
-                        docker.image('my-docker-image:latest').push()
-                    }
-                }
+                steps {
+                      script {
+                      // Build and push Docker image
+                     docker.build('my-docker-image:latest', '-f DockerfileFront')
+                     docker.withRegistry( 'miladiemna') {
+                     docker.image('my-docker-image:latest').push()
             }
         }
+    }
+}
 
-        tage('Deploy') {
-            steps {
-                script {
-                    // Deploy Docker container
-                    docker.image('my-docker-image:latest').run('-p 8080:80 --name frontend')
-                }
-            }
+            stage('Deploy') {
+                steps {
+                  script {
+            // Deploy Docker container
+                   docker.image('my-docker-image:latest').run('-p 8080:80 --name frontend')
         }
+    }
+}
+
+        
     }
 
     
