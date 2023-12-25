@@ -9,6 +9,9 @@
     "test": "ng test",
     "sonar": "sonar-scanner"
   },
+  "publishConfig": {
+    "registry": "http://nexus:8081/repository/front-Devops/"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.0",

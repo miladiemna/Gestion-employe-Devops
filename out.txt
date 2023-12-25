@@ -1,0 +1,3 @@
+-----BEGIN CERTIFICATE-----
+amVua2luczphbW91bmE=
+-----END CERTIFICATE-----

@@ -30,20 +30,28 @@ pipeline {
             }
         }
 
-        stage('docker image'){
-            steps{
+        //stage('docker image'){
+          //  steps{
                 
-                    sh 'docker build -f DockerfileFront -t frontend .'
-                }
-               }
+                  //  sh 'docker build -f DockerfileFront -t frontend .'
+               // }
+           //   // }
             }
 
-      
-}
+        stage('Publish To Nexus') {
+            steps {
+                dir('./Front-Devops') {
+                withCredentials([file(credentialsId: 'npmcred', variable: 'mynpmrc')]) {
+                    script{
+                        sh "npm publish --userconfig ${mynpmrc} --loglevel verbose"
+                    }
+                }
+            }
+            
 
         
     
 
     
 
-}
+}}}
