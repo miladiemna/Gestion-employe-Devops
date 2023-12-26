@@ -70,7 +70,27 @@ pipeline {
                    
                 }
             }
-        }*/stage('Docker compose') {
+        }*/ stage('Docker build') {
+         steps {
+        // Étape pour exécuter l'analyse SonarQube dans le répertoire 'Back-devops'
+        dir('./Back-devops') {
+            sh "mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://192.168.1.241:9091 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e -Dsonar.exclusions=**/*.java" // Commande Maven pour l'analyse SonarQube avec exclusion des fichiers Java
+        }
+        }
+        }
+
+        stage('Push to docker hub') {
+         steps {
+        // Étape pour exécuter l'analyse SonarQube dans le répertoire 'Back-devops'
+        dir('./Back-devops') {
+            sh "mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://192.168.1.241:9091 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e -Dsonar.exclusions=**/*.java" // Commande Maven pour l'analyse SonarQube avec exclusion des fichiers Java
+        }
+        }
+        }
+
+        
+        
+        stage('Docker compose') {
          steps {
         dir('./Back-devops') {
             //sh 'docker compose -f docker-composes-Application.yml up db frontdevops'
