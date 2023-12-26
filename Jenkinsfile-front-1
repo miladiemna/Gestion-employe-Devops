@@ -29,9 +29,32 @@ pipeline {
             }
         }
 
+         stage('docker build') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+         stage('Push to docker hub') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+        stage('Docker compose') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
 
 
-           stage('docker build'){
+          /* stage('docker build'){
              steps {
                sh 'docker build -f DockerfileFront -t miladiemna/frontendevops .'
              }
@@ -46,7 +69,7 @@ pipeline {
                 }
             }
         }
-         /*  stage('Docker compose'){
+           stage('Docker compose'){
             steps{
                 script{
                     sh 'docker compose -f docker-composes-Application.yml up db frontdevops'
