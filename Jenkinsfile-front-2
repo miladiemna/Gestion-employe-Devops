@@ -32,7 +32,7 @@ pipeline {
          stage('Publish To Nexus') {
             steps {
                 dir('./front') {
-                withCredentials([file(credentialsId: 'npmcred', variable: 'mynpmrc')]) {
+                withCredentials([file(credentialsId: 'npmcred', variable: 'npmrc')]) {
                     script{
                         sh "npm publish --userconfig ${mynpmrc} --loglevel verbose"
                     }
