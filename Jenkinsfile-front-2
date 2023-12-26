@@ -34,7 +34,7 @@ pipeline {
                 dir('./Front-Devops') {
                 withCredentials([file(credentialsId: 'npmcred', variable: 'npmrc')]) {
                     script{
-                        sh "npm publish --userconfig ${mynpmrc} --loglevel verbose"
+                        sh "npm publish --userconfig ${npmrc} --loglevel verbose"
                     }
                 }
             }}
