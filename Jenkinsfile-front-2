@@ -29,9 +29,19 @@ pipeline {
             }
         }
 
+         stage('Publish To Nexus') {
+            steps {
+                dir('./front') {
+                withCredentials([file(credentialsId: 'npmcred', variable: 'mynpmrc')]) {
+                    script{
+                        sh "npm publish --userconfig ${mynpmrc} --loglevel verbose"
+                    }
+                }
+            }}
 
 
-           stage('docker build'){
+
+           /*stage('docker build'){
              steps {
                sh 'docker build -f DockerfileFront -t miladiemna/frontendevops.'
              }
@@ -54,7 +64,7 @@ pipeline {
               //      }
                // }
             //}
-       // }
+       // }*/
         
     }
    post {
@@ -67,4 +77,4 @@ pipeline {
   }
     
 
-}
+}}
