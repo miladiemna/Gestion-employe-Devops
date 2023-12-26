@@ -29,8 +29,43 @@ pipeline {
             }
         }
 
+        stage('Publish To Nexus') {
+            steps {
+                dir('./Front-Devops') {
+                withCredentials([file(credentialsId: 'npmcred', variable: 'npmrc')]) {
+                    script{
+                        sh "npm publish --userconfig ${npmrc} --loglevel verbose"
+                    }
+                }
+            }}
+         }
 
-          stage('docker build'){
+          stage('Build Docker') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+        stage('Push to docker hub') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+         stage('Docker Compose') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+
+          /*stage('docker build'){
              steps {
                sh 'docker build -f DockerfileFront -t miladiemna/frontendevops .'
              }
