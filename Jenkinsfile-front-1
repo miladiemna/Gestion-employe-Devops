@@ -56,10 +56,11 @@ pipeline {
                 }
             }
         }
-           stage('Docker compose'){
+         stage('Docker compose'){
             steps{
                 script{
-                    sh "docker-compose -f docker-composes-Application.yml up db frontdevops"
+                    sh "docker build -f DockerFileBack -t miladiemna/backend ."
+                   
                 }
             }
         }
