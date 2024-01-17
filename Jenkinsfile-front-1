@@ -57,11 +57,9 @@ pipeline {
             }
         }
          stage('Docker compose'){
-            steps{
-                script{
-                    sh "docker build -f DockerFileBack -t miladiemna/backend ."
-                   
-                }
+            steps {
+               sh "docker build -f DockerfileFront -t miladiemna/frontendevops ."
+             }
             }
         }
         
