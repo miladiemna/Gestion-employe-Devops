@@ -54,7 +54,7 @@ pipeline {
              }
            }
       
-            /*stage('Push to docker hub'){
+            stage('Push to docker hub'){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
@@ -62,11 +62,11 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
         stage('Docker compose'){
             steps{
                 script{
-                    sh "docker-compose -f docker-compose-Application.yml up "
+                    sh "docker build -f DockerFileBack -t miladiemna/backend ."
                    
                 }
             }
