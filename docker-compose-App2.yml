@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+ 
+
+  frontdevops:
+    networks:
+      - devops
+    container_name: frontdevops
+    build: 
+      dockerfile: DockerFileFront
+      context: "./"
+    links:
+      - "back"
+    
+    ports:
+      - "4200:80" 
+
+  db:
+    networks:
+      -devops
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_DB: TalanBD
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: amouna
+    volumes:
+      - my-datavolume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - devops
+
+volumes:
+  my-datavolume:
+
+networks:
+  devops:
