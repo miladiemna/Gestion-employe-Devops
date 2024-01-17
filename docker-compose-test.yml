@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
- 
-
-  frontdevops:
-    networks:
-      - devops
-    container_name: frontdevops
-    build: 
-      dockerfile: DockerFileFront
-      context: "./"
-    
-    ports:
-      - "4200:80" 
 
   db:
     networks:
