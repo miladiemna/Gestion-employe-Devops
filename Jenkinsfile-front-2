@@ -42,7 +42,7 @@ pipeline {
 
 
 
-           /*stage('docker build'){
+           stage('docker build'){
              steps {
                sh 'docker build -f DockerfileFront -t miladiemna/frontendevops.'
              }
