@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
 
-  private baseUrl = "http://localhost:8081/employee/employees";
+  private baseUrl = "http://back:8082/employee/employees";
 
   constructor(private http: HttpClient) { }
 
     getEmployees(): Observable<Employee[]>{
       return this.http.get<Employee[]>(`${this.baseUrl}`);}
+      
   
 }

@@ -6,9 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "sonar": "sonar-scanner"
   },
-  "private": true,
+  "publishConfig": {
+    "registry": "http://192.168.1.241:8081/repository/front-Devops/"
+  },
+  
   "dependencies": {
     "@angular/animations": "^16.1.0",
     "@angular/common": "^16.1.0",
@@ -33,6 +37,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "sonarqube-scanner": "^3.3.0",
     "typescript": "~5.1.3"
   }
 }

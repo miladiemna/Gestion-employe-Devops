@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+    tools {
+        nodejs 'nodejs'
+        dockerTool 'docker'
+    }
+    stages {
+        stage('Get Code from Github') {
+                steps {
+                        checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/Gestion-employe-Devops']])
+                    }
+        }
+
+
+        stage('Build Front'){
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Sonar Scanner') {
+            steps{
+                dir('./Front-Devops') {
+                    sh 'npm run sonar'
+                }
+            }
+        }
+
+        stage('Publish To Nexus') {
+            steps {
+                dir('./Front-Devops') {
+                withCredentials([file(credentialsId: 'npmcred', variable: 'npmrc')]) {
+                    script{
+                        sh "npm publish --userconfig ${npmrc} --loglevel verbose"
+                    }
+                }
+            }}
+         }
+
+
+          stage('docker build'){
+             steps {
+               sh "docker build -f DockerfileFront -t miladiemna/frontendevops ."
+             }
+           }
+      
+            stage('Push to docker hub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
+                        sh "docker push miladiemna/frontendevops"
+                    }
+                }
+            }
+        }
+         stage('Docker compose'){
+            steps {
+               sh "docker build -f DockerfileFront -t miladiemna/frontendevops ."
+             }
+            }
+        }
+        
+    
+   post {
+    success {
+      slackSend color: '#36a64f', message: "Deployment of frontend succeeded"
+    }
+    failure {
+      slackSend color: '#ff0000', message: "Deployment of frontend failed"
+    }
+  }
+}
+    
+

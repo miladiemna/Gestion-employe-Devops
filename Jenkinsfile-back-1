@@ -1,0 +1,86 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven'
+        dockerTool 'docker'
+    }
+    
+    stages {
+        stage('Clone Repository from git') {
+            steps {
+            checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/miladiemna/Gestion-employe-Devops']])
+            }
+        } 
+
+        stage('Build maven'){
+            steps{
+                dir('./Back-devops') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+         steps {
+        // Étape pour exécuter l'analyse SonarQube dans le répertoire 'Back-devops'
+        dir('./Back-devops') {
+            sh "mvn sonar:sonar -Dsonar.projectKey=devSonar -Dsonar.projectName='devSonar' -Dsonar.host.url=http://192.168.1.241:9091 -Dsonar.login=sqp_0b33a40d3b8fc2145039790fb876452d6b3d0d0e -Dsonar.exclusions=**/*.java" // Commande Maven pour l'analyse SonarQube avec exclusion des fichiers Java
+        }
+        }
+        }
+
+      /*  stage('Publish To Nexus') {
+            steps {
+                dir('./Back-devops') {
+                nexusArtifactUploader( 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http',
+                    nexusUrl: '192.168.1.241:8081',
+                    credentialsId: 'nexus',
+                    repository: 'Back-Devops',
+                    groupId: 'com.example',
+                    version: '0.0.1-SNAPSHOT', 
+                    artifacts: [
+                        [artifactId: 'StageTalanBack',
+                        classifier: '',
+                         file: './target/StageTalanBack-0.0.1-SNAPSHOT.jar',
+                         type: 'jar']])
+            }
+            }*/
+          stage('docker build'){
+             steps {
+               sh "docker build -f DockerFileBack -t miladiemna/backend ."
+             }
+           }
+      
+            stage('Push to docker hub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
+                        sh "docker push miladiemna/backend"
+                    }
+                }
+            }
+        }
+        stage('Docker compose'){
+            steps{
+                script{
+                    sh "docker build -f DockerFileBack -t miladiemna/backend ."
+                   
+                }
+            }
+        }
+  
+    }
+
+
+    post {
+    success {
+      slackSend color: '#36a64f', message: "Deployment of backend succeeded"
+    }
+    failure {
+      slackSend color: '#ff0000', message: "Deployment of backend failed"
+    }
+  }
+}

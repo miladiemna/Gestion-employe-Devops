@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk-alpine
+EXPOSE 8082
+ADD Back-devops/target/StageTalanBack-0.0.1-SNAPSHOT.jar devapi.jar
+ENTRYPOINT ["java","-jar","devapi.jar"]

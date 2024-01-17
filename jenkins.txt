@@ -40,3 +40,10 @@ pipeline {
         }
     }
 }
+
+// 4 jenkins file , 2 back , 2 front
+
+
+
+// get code github jenkins 
+// back : build b maven , front : build avec npm 

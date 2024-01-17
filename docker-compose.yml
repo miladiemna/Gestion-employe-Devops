@@ -1,5 +1,32 @@
 version: "3.8"
+
 services:
+
+    jenkins:
+        image: jenkins/jenkins:lts
+        container_name: jenkins
+
+        ports:
+            - "8080:8080"  # Port Jenkins web UI
+            - "50000:50000"  # Port pour les connexions d'agent
+        privileged: true
+        volumes:
+            - jenkins_home:/var/jenkins_home  
+            - /var/run/docker.sock:/var/run/docker.sock
+    nexus:
+        image: sonatype/nexus3:latest
+        container_name: nexus
+        ports:
+            - "8081:8081"
+        volumes:
+            - nexus-data:/nexus-data
+        environment:
+            - NEXUS_SECURITY_RANDOMPASSWORD=false
+            - NEXUS_SECURITY_ADMINPASSWORD=admin123
+        networks:
+            - devops-project-network
+        restart: unless-stopped
+
     sonarqube:
         container_name: sonarqube
         image: sonarqube
@@ -15,7 +42,7 @@ services:
             - sonarqube_extensions:/opt/sonarqube/extensions
             - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
         ports:
-            - 9000:9000
+            - 9091:9000
 
     sonarqube-database:
         container_name: sonarqube-database
@@ -28,7 +55,7 @@ services:
             - sonarqube_database:/var/lib/postgresql
             - sonarqube_database_data:/var/lib/postgresql/data
         ports:
-            -   5432:5432
+            -   5432:5433
 
 
 volumes:
@@ -38,3 +65,8 @@ volumes:
     sonarqube_data:
     sonarqube_database:
     sonarqube_extensions:
+    nexus-data:
+    jenkins_home:
+
+networks:
+  devops-project-network:
