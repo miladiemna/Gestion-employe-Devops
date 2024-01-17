@@ -10,8 +10,6 @@ services:
     build: 
       dockerfile: DockerFileFront
       context: "./"
-    links:
-      - "back"
     
     ports:
       - "4200:80" 
