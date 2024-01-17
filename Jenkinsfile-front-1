@@ -63,7 +63,7 @@ pipeline {
             }
         }
         
-    }
+    
    post {
     success {
       slackSend color: '#36a64f', message: "Deployment of frontend succeeded"
@@ -72,5 +72,6 @@ pipeline {
       slackSend color: '#ff0000', message: "Deployment of frontend failed"
     }
   }
+}
     
 
