@@ -68,7 +68,7 @@ pipeline {
           steps {
               dir('./Back-devops') {
                script {
-                   kubernetesDeploy(configs: "deployementbackend.yaml", kubeconfigId: "kubernetes")
+                   kubernetesDeploy(configs: "deployBack.yaml", kubeconfigId: "kubernetes")
                     }
                }
             }
