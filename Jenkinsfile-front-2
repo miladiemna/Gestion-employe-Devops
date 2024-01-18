@@ -57,23 +57,19 @@ pipeline {
                 }
             }
         }
-           // stage('Deploy to K8s') {
-         //   steps {
-          //      dir('./Front-Devops') {
-            //    script {
-             //       kubernetesDeploy(configs: "deployementFronend.yaml", kubeconfigId: "kubernetes")
-              //      }
-               // }
-            //}
-       // }*/
+            stage('Deploy to K8s') {
+           steps {
+               sh 'docker build -f DockerfileFront -t miladiemna/frontendevops.'
+             }
+       }
         
     }
    post {
     success {
-      slackSend color: '#36a64f', message: "Deployment of frontend succeeded"
+      slackSend color: '#36a64f', message: "Deployment of frontend succeeded from k8s"
     }
     failure {
-      slackSend color: '#ff0000', message: "Deployment of frontend failed"
+      slackSend color: '#ff0000', message: "Deployment of frontend failed from k8s"
     }
   }
     

@@ -47,14 +47,14 @@ pipeline {
                          file: './target/StageTalanBack-0.0.1-SNAPSHOT.jar',
                          type: 'jar']])
             }
-            }
+            }*/
            stage('docker build'){
              steps {
                sh 'docker build -f DockerFileBack -t miladiemna/backend .'
              }
-           }*/
+           }
       
-           /* stage('Push to docker hub'){
+            stage('Push to docker hub'){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
@@ -62,16 +62,12 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
 
         stage('Deploy to K8s') {
           steps {
-              dir('./Back-devops') {
-               script {
-                   kubernetesDeploy(configs: "deployBack.yaml", kubeconfigId: "kubernetes")
-                    }
-               }
-            }
+               sh 'docker build -f DockerFileBack -t miladiemna/backend .'
+             }
        }
     }
 
