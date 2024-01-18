@@ -47,12 +47,12 @@ pipeline {
                          file: './target/StageTalanBack-0.0.1-SNAPSHOT.jar',
                          type: 'jar']])
             }
-            }*/
+            }
            stage('docker build'){
              steps {
                sh 'docker build -f DockerFileBack -t miladiemna/backend .'
              }
-           }
+           }*/
       
            /* stage('Push to docker hub'){
             steps{
