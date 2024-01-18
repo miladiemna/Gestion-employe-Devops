@@ -43,24 +43,26 @@ pipeline {
 
 
            stage('docker build'){
-             steps{
-                dir('./Front-Devops') {
-                    sh 'npm run sonar'
-                }
-            }
+             steps {
+               sh 'docker build -f DockerfileFront -t miladiemna/frontendevops.'
+             }
            }
       
-        stage('Push to docker hub'){
-           steps{
-                dir('./Front-Devops') {
-                    sh 'npm run sonar'
+            stage('Push to docker hub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
+                        sh "docker push miladiemna/frontendevops"
+                    }
                 }
             }
         }
-        stage('Deploy to K8s') {
-           steps{
-                dir('./Front-Devops') {
-                    sh 'npm run sonar'
+            stage('Deploy to K8s') {
+           steps {
+               dir('./Front-Devops') {
+               script {
+                    kubernetesDeploy(configs: "deployFront.yaml", kubeconfigId: "kubernetes")
+                    }
                 }
             }
        }
