@@ -54,7 +54,7 @@ pipeline {
              }
            }
       
-            stage('Push to docker hub'){
+           /* stage('Push to docker hub'){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'dockerhubpwd', toolName: 'docker') {
@@ -62,17 +62,17 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
-           // stage('Deploy to K8s') {
-         //   steps {
-          //      dir('./Back-devops') {
-            //    script {
-             //       kubernetesDeploy(configs: "deployementbackend.yaml", kubeconfigId: "kubernetes")
-              //      }
-               // }
-            //}
-       // }
+        stage('Deploy to K8s') {
+          steps {
+              dir('./Back-devops') {
+               script {
+                   kubernetesDeploy(configs: "deployementbackend.yaml", kubeconfigId: "kubernetes")
+                    }
+               }
+            }
+       }
     }
 
 
